@@ -3,3 +3,4 @@ data
 __pycache__
 wandb/
 test.py
+notebooks/.ipynb_checkpoints
