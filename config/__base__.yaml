@@ -1,6 +1,6 @@
 dataset:
   data_path: data/train.csv
-  seq_len: 512
+  seq_len: 1024
   split_ratio: 0.2
   batch_size: 4
 model:
@@ -13,4 +13,4 @@ optimizer:
 training:
   max_epochs: 2
   early_stop_count: 10
-  chkp_path: "bert_weights.pt"  
+  chkp_path: bert_weights.pt  
