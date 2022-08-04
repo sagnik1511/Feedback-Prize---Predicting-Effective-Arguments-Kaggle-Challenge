@@ -1,6 +1,6 @@
 dataset:
   data_path: data/train.csv
-  seq_len: 1024
+  seq_len: 512
   split_ratio: 0.2
   batch_size: 4
 model:

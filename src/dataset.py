@@ -7,6 +7,7 @@ from transformers import BertTokenizer
 
 # tokenizer for the task
 tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+tokenizer.model_max_length = 512
 
 class BERTDatasetTraining:
 

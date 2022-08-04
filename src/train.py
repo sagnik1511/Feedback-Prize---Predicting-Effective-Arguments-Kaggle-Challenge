@@ -148,3 +148,4 @@ if __name__ == '__main__':
     wandb.init(config=params)
     train_step, val_step = 1, 1
     train(params)
+    
