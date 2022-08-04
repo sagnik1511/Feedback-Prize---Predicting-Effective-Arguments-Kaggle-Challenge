@@ -50,7 +50,7 @@ def train_single_epoch(loader, model, optim, loss_fn):
     return model, optim, epoch_scores
 
 def validate_single_epoch(loader, model, loss_fn):
-    global test_step
+    global val_step
     total_loss = 0.0
     all_targets = []
     all_preds = []
