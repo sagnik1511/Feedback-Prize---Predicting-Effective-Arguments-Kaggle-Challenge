@@ -13,4 +13,4 @@ optimizer:
 training:
   max_epochs: 2
   early_stop_count: 10
-  
+  chkp_path: "bert_weights.pt"  

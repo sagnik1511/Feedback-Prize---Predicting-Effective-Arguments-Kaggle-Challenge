@@ -102,7 +102,7 @@ def train(params):
     best_loss = torch.inf
     num_epochs = params["training"]["max_epochs"]
     early_stop_counter = 0
-
+    checkpoint_path = params["training"]["chkp_path"]
     wandb.watch(model, log_freq=10)
 
     best_train_scores = None
@@ -127,6 +127,9 @@ def train(params):
                 early_stop_counter = 0
                 best_train_scores = train_scores
                 best_val_scores = val_scores
+                chkp = {"model_state": model.state_dict(),
+                        "epoch": epoch+1}
+                torch.save(chkp, checkpoint_path)
                 print("Model Weights Updated...")
             else:
                 early_stop_counter += 1
