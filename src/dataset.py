@@ -34,7 +34,7 @@ class BERTDatasetTraining:
         label = self.meta_df.loc[index, "discourse_effectiveness"]
 
         # encoding texts
-        tokens = tokenizer.encode_plus(sentence)
+        tokens = tokenizer.encode_plus(sentence, padding="max_length", truncation=True)
 
         # adding padding to the right of dataset
         pad_len = max(0, self.seq_len - len(tokens["input_ids"]))
