@@ -11,7 +11,7 @@ tokenizer.model_max_length = 512
 
 class BERTDatasetTraining:
 
-    def __init__(self, meta_df, seq_len = 512, **kwargs):
+    def __init__(self, meta_df, seq_len = 512):
 
         self.meta_df = pd.read_csv(meta_df)
         self.tokenizer = tokenizer
@@ -47,6 +47,39 @@ class BERTDatasetTraining:
             "attention_mask" : torch.tensor(tokens["attention_mask"], dtype=torch.long),
             "token_type_ids" : torch.tensor(tokens["token_type_ids"], dtype=torch.long),
             "target" : torch.tensor(label, dtype=torch.long)
+        }
+
+
+
+class BERTDatasetTesting:
+
+    def __init__(self, meta_df, seq_len = 512):
+
+        self.meta_df = pd.read_csv(meta_df)
+        self.tokenizer = tokenizer
+        self.seq_len = seq_len
+
+    def __len__(self):
+        return len(self.meta_df)
+
+
+    def __getitem__(self, index):
+        sentence = self.meta_df.loc[index,"discourse_type"] + " " + \
+         self.meta_df.loc[index,"discourse_text"]
+
+        # encoding texts
+        tokens = tokenizer.encode_plus(sentence, padding="max_length", truncation=True)
+
+        # adding padding to the right of dataset
+        pad_len = max(0, self.seq_len - len(tokens["input_ids"]))
+        tokens["input_ids"] += [0 for _ in range(pad_len)]
+        tokens["attention_mask"] += [0 for _ in range(pad_len)]
+        tokens["token_type_ids"] += [0 for _ in range(pad_len)]
+
+        return {
+            "input_ids" : torch.tensor(tokens["input_ids"], dtype=torch.long),
+            "attention_mask" : torch.tensor(tokens["attention_mask"], dtype=torch.long),
+            "token_type_ids" : torch.tensor(tokens["token_type_ids"], dtype=torch.long)
         }
 
 
